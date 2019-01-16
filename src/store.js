@@ -6,12 +6,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cancel: ''
+    cancel: []
   },
   mutations: {
     axiosCancel (state, n) {
       // 变更状态
-      state.cancel = n
+      state.cancel.push(n)
     }
   },
   actions: {
