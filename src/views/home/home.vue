@@ -69,11 +69,6 @@ export default {
                 }
             })
             .catch(function (error) {
-                Toast({
-                        message: '定位失败，请在城市列表中选择',
-                        position: 'bottom',
-                        duration: 2000
-                    });
                 console.log(error);
                 if(axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
