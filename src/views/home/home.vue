@@ -1,5 +1,5 @@
 <template>
-    <div class="page-box">
+    <div class="page-box text-left">
         <mt-header fixed>
             <router-link to="/" slot="left">
                 <mt-button>ele.me</mt-button>
@@ -22,20 +22,12 @@
                 </router-link>
             </ul>
         </div>
-        <div class="city-container margin-bottom">
-            <h3>所有城市（按拼音排序）：</h3>
-            <mt-index-list>
-                <mt-index-section v-for="(value, key) in sortGroupCity" :key="key" :index="key">
-                    <mt-cell v-for="item in value" :key="item.id" :title="item.name" :to="'./city/' + item.id" is-link></mt-cell>
-                </mt-index-section>
-            </mt-index-list>
-        </div>
+        <mt-cell title="所有城市" to="./all-city" is-link class="border-bottom"></mt-cell>
     </div>
 </template>
 
 <script>
-import { Toast } from 'mint-ui';
-import { IndexList, IndexSection } from 'mint-ui';
+import { Toast, Indicator } from 'mint-ui';
 
 export default {
     data(){
@@ -43,7 +35,6 @@ export default {
             guessCity: '',   // 当前城市
             guessCityid: '', // 当前城市id
             hotCity: [],     // 热门城市
-            groupCity: {},   // 所有城市列表
         }
     },
     mounted(){
@@ -51,12 +42,6 @@ export default {
         this.getGuessCity();
         // 获取热门城市
         this.getHotCity();
-        // 获取所有城市
-        this.getGroupCity();
-    },
-    components:{
-        IndexList,
-        IndexSection
     },
     methods: {
         getGuessCity() {
@@ -87,50 +72,24 @@ export default {
             });
         },
         getHotCity() {
+            Indicator.open({
+                text: '加载中...',
+                spinnerType: 'fading-circle'
+            });
             axios.get('https://elm.cangdu.org/v1/cities', {
                 params: {
                     type: 'hot'
                 }
             })
             .then(response => {
+                Indicator.close();
                 if(response.status === 200 && response.statusText === 'OK'){
-                    console.log(response)
                     this.hotCity = response.data;
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
-        },
-        getGroupCity() {
-            axios.get('https://elm.cangdu.org/v1/cities', {
-                params: {
-                    type: 'group'
-                }
-            })
-            .then(response => {
-                if(response.status === 200 && response.statusText === 'OK'){
-                    console.log(response)
-                    this.groupCity = response.data;
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        }
-    },
-    computed: {
-        // 将获取的数据按照A-Z字母开头排序
-        sortGroupCity(){
-            let sortObj = {};
-            for (let i = 65; i <= 90; i++) {
-                let charCode = String.fromCharCode(i);
-                if (this.groupCity[charCode]) {
-                    sortObj[charCode] = this.groupCity[charCode];
-                }
-            }
-            console.log(sortObj)
-            return sortObj;
         }
     }
 }
@@ -140,25 +99,31 @@ export default {
 .subheading 
     font-size 12px
     color #999
+
 .border-bottom
-    border-bottom 1px solid #ddd
+    border-bottom 1px solid #eee
+
 .margin-bottom
     margin-bottom 10px
+
 .city-container
     background #fff
     border-top 1px solid #ddd
     border-bottom 1px solid #ddd
+
 h3 
     margin 0
     padding 0 10px
     font-size 14px
     line-height 36px
+
 .city-box 
     margin 0
     padding 0
     list-style none
     display flex
     flex-wrap wrap
+
 .city-box li 
     box-sizing border-box
     flex 0 0 25%
@@ -166,8 +131,11 @@ h3
     line-height 34px
     border-top 1px solid #eee
     border-left 1px solid #eee
+
 .city-box li:first-child
     border-left: 0
+
 .city-box li:nth-child(5n)
     border-left: 0
+
 </style>

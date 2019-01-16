@@ -14,6 +14,11 @@
 
 .page-box
     padding-top 40px
-    text-align left
     background #f5f5f5
+
+.text-left 
+    text-align left
+
+.border-0 
+    border 0
 </style>

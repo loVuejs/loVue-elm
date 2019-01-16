@@ -11,9 +11,16 @@ Vue.use(MintUI)
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
-  console.log(from)
-  console.log(next)
+  next()
+
+  // if (!auth.loggedIn()) {
+  //   next({
+  //     path: '/login',
+  //     query: { redirect: to.fullPath }
+  //   })
+  // } else {
+  //   next()
+  // }
 })
 
 new Vue({
