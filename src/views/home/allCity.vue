@@ -15,6 +15,8 @@
 
 <script>
 import { IndexList, IndexSection, Indicator } from 'mint-ui';
+import axios from 'axios';
+const CancelToken = axios.CancelToken;
 
 export default {
     data(){
@@ -32,6 +34,7 @@ export default {
     },
     methods: {
         getGroupCity() {
+            var self = this;
             Indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
@@ -39,7 +42,10 @@ export default {
             axios.get('https://elm.cangdu.org/v1/cities', {
                 params: {
                     type: 'group'
-                }
+                },
+                cancelToken: new CancelToken(function executor(c) {
+                    self.$store.commit('axiosCancel', c)
+                })
             })
             .then(response => {
                 Indicator.close();
@@ -49,6 +55,9 @@ export default {
             })
             .catch(function (error) {
                 console.log(error);
+                if(axios.isCancel(error)){
+                    console.log('Rquest canceled', error.message);
+                }
             });
         }
     },

@@ -11,6 +11,11 @@ Vue.use(MintUI)
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
+  if (store.state.cancel) {
+    // 路由切换时都将上个路由的请求全部清除
+    MintUI.Indicator.close()
+    store.state.cancel()
+  }
   next()
 
   // if (!auth.loggedIn()) {

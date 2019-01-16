@@ -28,6 +28,8 @@
 
 <script>
 import { Toast, Indicator } from 'mint-ui';
+import axios from 'axios';
+const CancelToken = axios.CancelToken;
 
 export default {
     data(){
@@ -45,10 +47,14 @@ export default {
     },
     methods: {
         getGuessCity() {
+            var self = this;
             axios.get('https://elm.cangdu.org/v1/cities', {
                 params: {
                     type: 'guess'
-                }
+                },
+                cancelToken: new CancelToken(function executor(c) {
+                    self.$store.commit('axiosCancel', c)
+                })
             })
             .then(response => {
                 if(response.status === 200 && response.statusText === 'OK'){
@@ -69,9 +75,13 @@ export default {
                         duration: 2000
                     });
                 console.log(error);
+                if(axios.isCancel(error)){
+                    console.log('Rquest canceled', error.message);
+                }
             });
         },
         getHotCity() {
+            var self = this;
             Indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
@@ -79,7 +89,10 @@ export default {
             axios.get('https://elm.cangdu.org/v1/cities', {
                 params: {
                     type: 'hot'
-                }
+                },
+                cancelToken: new CancelToken(function executor(c) {
+                    self.$store.commit('axiosCancel', c)
+                })
             })
             .then(response => {
                 Indicator.close();
@@ -89,6 +102,9 @@ export default {
             })
             .catch(function (error) {
                 console.log(error);
+                if(axios.isCancel(error)){
+                    console.log('Rquest canceled', error.message);
+                }
             });
         }
     }
