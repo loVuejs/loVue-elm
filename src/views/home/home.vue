@@ -10,9 +10,9 @@
         </mt-header>
         <div class="margin-bottom">
             <mt-cell title="当前定位城市：" class="border-bottom">
-            <span class="subheading">定位不准时，请在城市列表中选择</span>
-        </mt-cell>
-        <mt-cell :title="guessCity" :to="'./city/' + guessCityid" is-link class="border-bottom"></mt-cell>
+                <span class="subheading">定位不准时，请在城市列表中选择</span>
+            </mt-cell>
+            <mt-cell :title="guessCity" :to="'./city/' + guessCityid" is-link class="border-bottom"></mt-cell>
         </div>
         <div v-if="hotCity.length > 0" class="city-container margin-bottom">
             <h3>热门城市：</h3>
@@ -107,6 +107,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './../../style/custom.styl'
+
 .subheading 
     font-size 12px
     color #999
