@@ -8,10 +8,11 @@
                 <mt-button>登录 | 注册</mt-button>
             </router-link>
         </mt-header>
-        <div class="margin-bottom">
-            <mt-cell title="当前定位城市：" class="border-bottom">
-                <span class="subheading">定位不准时，请在城市列表中选择</span>
-            </mt-cell>
+        <div class="section">
+            <div class="cell-box border-bottom">
+                <div class="cell-item-left">当前定位城市：</div>
+                <div class="cell-item-right">定位不准时，请在城市列表中选择</div>
+            </div>
             <mt-cell :title="guessCity" :to="'./city/' + guessCityid" is-link class="border-bottom"></mt-cell>
         </div>
         <div v-if="hotCity.length > 0" class="city-container margin-bottom">
@@ -22,7 +23,7 @@
                 </router-link>
             </ul>
         </div>
-        <mt-cell title="所有城市" to="./all-city" is-link class="border-bottom"></mt-cell>
+        <mt-cell title="所有城市" to="./all-city" is-link class="border-top-bottom"></mt-cell>
     </div>
 </template>
 
@@ -109,46 +110,38 @@ export default {
 <style lang="stylus">
 @import './../../style/custom.styl'
 
-.subheading 
-    font-size 12px
-    color #999
-
-.border-bottom
-    border-bottom 1px solid #eee
-
-.margin-bottom
-    margin-bottom 10px
-
 .city-container
-    background #fff
-    border-top 1px solid #ddd
-    border-bottom 1px solid #ddd
+    background: #fff;
+    border-top: 1px solid $ddd;
+    border-bottom: 1px solid $ddd;
+    margin-bottom: 10px;
 
 h3 
-    margin 0
-    padding 0 10px
-    font-size 14px
-    line-height 36px
+    margin: 0;
+    padding: 0 10px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 46px;
 
 .city-box 
-    margin 0
-    padding 0
-    list-style none
-    display flex
-    flex-wrap wrap
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
 
 .city-box li 
-    box-sizing border-box
-    flex 0 0 25%
-    text-align center
-    line-height 34px
-    border-top 1px solid #eee
-    border-left 1px solid #eee
+    box-sizing: border-box;
+    flex: 0 0 25%;
+    text-align: center;
+    line-height: 40px;
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
 
 .city-box li:first-child
-    border-left: 0
+    border-left: 0;
 
 .city-box li:nth-child(5n)
-    border-left: 0
+    border-left: 0;
 
 </style>

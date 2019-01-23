@@ -1,0 +1,47 @@
+// 自定义公共样式
+
+$blank = #333;
+$blue = #26a2ff;
+$666 = #666
+$999 = #999
+$gray = #ccc
+$red = #F85367
+$ddd = #ddd
+$bgColor = #F5F5F5
+
+.section
+    margin-bottom: 10px;
+    background: #fff;
+
+.cell-box
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    height: 46px;
+
+.border-top
+    border-top: 1px solid $ddd;
+
+.border-bottom
+    border-bottom: 1px solid $ddd;
+
+.border-top-bottom
+    border-top: 1px solid $ddd;
+    border-bottom: 1px solid $ddd;
+
+.cell-item-left
+    flex: auto;
+    color: $blank;
+    font-size: 16px;
+    text-align: left;
+
+.cell-item-right
+    flex: none;
+    color: $999;
+    font-size: 14px;
+
+
+
+// 覆盖 mint-ui 样式
+.mint-cell:last-child
+    background-image: none;

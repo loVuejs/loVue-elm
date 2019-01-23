@@ -79,5 +79,5 @@ export default {
 
 <style lang="stylus" scoped>
 .border-0 
-    border 0
+    border: 0;
 </style>
