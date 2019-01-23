@@ -1,5 +1,5 @@
 <template>
-    <div class="city-container text-left border-0">
+    <div class="text-left border-0">
         <mt-header title="所有城市（按拼音排序）">
             <router-link to="/" slot="left">
                 <mt-button icon="back">返回</mt-button>
