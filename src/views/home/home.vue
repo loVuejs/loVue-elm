@@ -10,10 +10,14 @@
         </mt-header>
         <div class="section">
             <div class="cell-box border-bottom">
-                <div class="cell-item-left">当前定位城市：</div>
-                <div class="cell-item-right">定位不准时，请在城市列表中选择</div>
+                <div class="cell-item-left">
+                    <span class="cell-item-text">当前定位城市：</span>
+                </div>
+                <div class="cell-item-right">
+                    <span class="cell-item-sub-text">定位不准时，请在城市列表中选择</span>
+                </div>
             </div>
-            <mt-cell :title="guessCity" :to="'./city/' + guessCityid" is-link class="border-bottom"></mt-cell>
+            <mt-cell :title="guessCity" :to="'/city/' + guessCityid" is-link class="border-bottom"></mt-cell>
         </div>
         <div v-if="hotCity.length > 0" class="city-container margin-bottom">
             <h3>热门城市：</h3>
@@ -41,6 +45,7 @@ export default {
         }
     },
     mounted(){
+        document.querySelector('title').innerText = '首页';
         // 获取当前城市
         this.getGuessCity();
         // 获取热门城市

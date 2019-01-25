@@ -1,9 +1,9 @@
 <template>
     <div class="text-left border-0">
         <mt-header title="所有城市（按拼音排序）">
-            <router-link to="/" slot="left">
+            <div slot="left" @click="back">
                 <mt-button icon="back">返回</mt-button>
-            </router-link>
+            </div>
         </mt-header>
         <mt-index-list>
             <mt-index-section v-for="(value, key) in sortGroupCity" :key="key" :index="key">
@@ -25,6 +25,7 @@ export default {
         }
     },
     mounted(){
+        document.querySelector('title').innerText = '所有城市';
         // 获取所有城市
         this.getGroupCity();
     },
@@ -33,6 +34,13 @@ export default {
         IndexSection
     },
     methods: {
+        back(){
+            if(document.referrer){
+                this.$router.go(-1);
+            }else{
+                 this.$router.push({ path: '/' });
+            }
+        },
         getGroupCity() {
             var self = this;
             Indicator.open({

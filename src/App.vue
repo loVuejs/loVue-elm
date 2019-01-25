@@ -3,22 +3,3 @@
         <router-view/>
     </div>
 </template>
-
-<style lang="stylus">
-#app
-    font-family 'Avenir', Helvetica, Arial, sans-serif
-    -webkit-font-smoothing antialiased
-    -moz-osx-font-smoothing grayscale
-    text-align center
-    color #2c3e50
-
-.page-box
-    padding-top 40px
-    background #f5f5f5
-
-.text-left 
-    text-align left
-
-.border-0 
-    border 0
-</style>
