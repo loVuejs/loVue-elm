@@ -8,11 +8,13 @@
                 <mt-button>切换城市</mt-button>
             </router-link>
         </mt-header>
-        <form class="search-box" method="post">
+        <form class="search-box" method="post" v-on:submit.prevent>
             <div class="cell-box bg-fff padding-0">
                 <div class="cell-item-left">
                     <input class="form-input" type="search"
-                        v-model="address" placeholder="输入学校、商务楼、地址">
+                        v-model="address" 
+                        @keyup.enter="getAddressAround"
+                        placeholder="输入学校、商务楼、地址">
                 </div>
                 <div class="cell-item-right">
                     <button class="inline-btn" type="button"
@@ -20,13 +22,29 @@
                 </div>
             </div>
         </form>
+        <div class="list-title-box">
+            <div class="list-title-item"
+                v-if="searchHistory.length > 0"
+                :class="{ on: listIndex === 0 }"
+                @click="showSearchList(0)">搜索历史</div>
+            <div class="list-title-item"
+                v-if="addressAround.length > 0"
+                :class="{ on: listIndex === 1 }"
+                @click="showSearchList(1)">搜索结果</div>
+        </div>
         <div class="address-list" 
-            v-if="addressAround.length > 0">
+            v-if="renderList.length > 0">
             <div class="list-item"
-                v-for="(item, index) in addressAround" :key="index">
+                v-for="(item, index) in renderList" :key="index"
+                @click='nextpage(index, item.geohash)'>
                 <div class="item-name ellipsis">{{ item.name }}</div>
                 <div class="item-address ellipsis">{{ item.address }}</div>
             </div>
+        </div>
+        <div class="clear-search-box"
+            v-if="searchHistory.length > 0 && listIndex === 0">
+            <button class="form-btn" type="button"
+                @click="clearSearchHistory">清空搜索历史</button>
         </div>
     </div>
 </template>
@@ -40,17 +58,18 @@ const CancelToken = axios.CancelToken;
 export default {
     data(){
         return {
+            renderList: [],
             cityInfo: {},
             address: '',
             addressAround: [],
+            searchHistory: [],
+            listIndex: 0, // 0显示搜索历史，1显示搜索结果
         }
     },
     mounted(){
         document.querySelector('title').innerText = '搜索地址';
         this.getCityInfo();
-    },
-    components:{
-        
+        this.getSearchHistory();
     },
     methods: {
         back(){
@@ -61,7 +80,7 @@ export default {
             }
         },
         getCityInfo(){
-            var self = this;
+            let self = this;
             axios.get('https://elm.cangdu.org/v1/cities/' + self.$route.params.cityId, {
                 cancelToken: new CancelToken(function executor(c) {
                     self.$store.commit('axiosCancel', c)
@@ -100,7 +119,7 @@ export default {
                 });
                 return false;
             }
-            var self = this;
+            let self = this;
             Indicator.open({
                 text: '搜索中...',
                 spinnerType: 'fading-circle'
@@ -117,7 +136,8 @@ export default {
             .then(response => {
                 Indicator.close();
                 if(response.status === 200 && response.statusText === 'OK'){
-                    this.addressAround = response.data;
+                    this.renderList = this.addressAround = response.data;
+                    this.listIndex = 1;
                 }else{
                     Toast({
                         message: '搜索地址失败，请重新搜索',
@@ -132,8 +152,52 @@ export default {
                     console.log('Rquest canceled', error.message);
                 }
             });
+        },
+        getSearchHistory(){
+            localforage.getItem('loVue-elm-searchHistory').then(value => {
+                this.renderList = this.searchHistory = value || [];
+                this.listIndex = 0;
+            });
+        },
+        nextpage(index, geohash){
+            let address = this.renderList[index],
+                flag = false; // 代表搜索历史中是否有
+            this.searchHistory.forEach(element => {
+                if(element.geohash === address.geohash){
+                    flag = true;
+                }
+            });
+            !flag && this.searchHistory.push(address);
+            localforage.setItem('loVue-elm-searchHistory', this.searchHistory).then(value => {
+                console.log('搜索信息保存成功');
+                this.$router.push({ path: '/msite', query: { geohash } });
+            });
+            
+        },
+        showSearchList(index){
+            if(index === 0){
+                this.renderList = this.searchHistory;
+                this.listIndex = 0;
+            }else if(index === 1){
+                this.renderList = this.addressAround;
+                this.listIndex = 1;
+            }
+        },
+        clearSearchHistory(){
+            localforage.removeItem('loVue-elm-searchHistory').then(() => {
+                this.renderList = this.searchHistory = [];
+                if(this.addressAround.length){
+                    this.renderList = this.addressAround;
+                    this.listIndex = 1;
+                }
+                Toast({
+                    message: '搜索历史已清空',
+                    position: 'bottom',
+                    duration: 2000
+                });
+            });
         }
-    }
+    },
 }
 </script>
 
@@ -146,7 +210,7 @@ export default {
     border-bottom: 1px solid $ddd;
     
 .address-list
-    margin-bottom: 10px;
+    margin: 10px 0;
     border-bottom: 1px solid $ddd;
 
 .list-item
@@ -170,6 +234,28 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+.list-title-box
+    margin: 10px 0;
+    display: flex;
+    background: #fff;
+
+.list-title-item
+    flex: auto;
+    text-align: center;
+    line-height: 46px;
+    border-top: 1px solid $ddd;
+    border-bottom: 1px solid $ddd;
+
+.list-title-box .list-title-item:nth-child(1)
+    border-right: 1px solid $ddd;
+
+.list-title-box .list-title-item.on
+    color: $blue;
+
+.clear-search-box
+    margin: 10px 0;
+    padding: 0 10px;
 </style>
 
 

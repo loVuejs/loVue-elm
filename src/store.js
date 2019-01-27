@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     cancel: [],
-    cityInfo: {}
+    cityInfo: {},
+    addressInfo: {}
   },
   mutations: {
     axiosCancel (state, n) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     setCityInfo (state, n) {
       state.cityInfo = n
+    },
+    setAddressInfo (state, n) {
+      state.addressInfo = n
     }
   },
   actions: {

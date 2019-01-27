@@ -6,6 +6,7 @@ import 'mint-ui/lib/style.css'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './iconfont/iconfont.css'
 
 Vue.use(MintUI)
 Vue.config.productionTip = false
