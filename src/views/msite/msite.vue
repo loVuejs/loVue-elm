@@ -33,7 +33,8 @@
             </mt-swipe-item>
         </mt-swipe>
 
-        <stars :length="5" :value="3.3"></stars>
+        <stars :length="5" :value="stars" @click-index="(event) => { stars = event }"></stars>
+        <loading></loading>
     </div>
 </template>
 
@@ -42,6 +43,7 @@ import { Toast, Indicator, Swipe } from 'mint-ui';
 import axios from 'axios';
 const CancelToken = axios.CancelToken;
 import stars from './../../components/stars.vue';
+import loading from './../../components/loading.vue';
 
 export default {
     data(){
@@ -49,10 +51,11 @@ export default {
             title: '',
             addressInfo: {},
             foodTypes: [],
+            stars: 2.3
         }
     },
     components: {
-        stars
+        stars, loading
     },
     mounted(){
         if(this.$route.query.geohash){
