@@ -28,20 +28,25 @@
             </ul>
         </div>
         <mt-cell title="所有城市" to="./all-city" is-link class="border-top-bottom"></mt-cell>
+        <layerMsg v-if="layerMsgFlag" 
+            :text="layerMsgText"
+            @close="layerMsgFlag = false"></layerMsg>
     </div>
 </template>
 
 <script>
-import { Toast, Indicator } from 'mint-ui';
+import { Indicator } from 'mint-ui';
 import axios from 'axios';
 const CancelToken = axios.CancelToken;
-
+import layerMsg from './../../components/layerMsg.vue';
 export default {
     data(){
         return {
             guessCity: '',   // 当前城市
             guessCityid: '', // 当前城市id
             hotCity: [],     // 热门城市
+            layerMsgText: '',
+            layerMsgFlag: false
         }
     },
     mounted(){
@@ -50,6 +55,9 @@ export default {
         this.getGuessCity();
         // 获取热门城市
         this.getHotCity();
+    },
+    components: {
+        layerMsg
     },
     methods: {
         getGuessCity() {
@@ -67,11 +75,8 @@ export default {
                     this.guessCity = response.data.name;
                     this.guessCityid = response.data.id;
                 }else{
-                    Toast({
-                        message: '定位失败，请在城市列表中选择',
-                        position: 'bottom',
-                        duration: 2000
-                    });
+                    this.layerMsgText = '定位失败，请在城市列表中选择';
+                    this.layerMsgFlag = true;
                 }
             })
             .catch(function (error) {
