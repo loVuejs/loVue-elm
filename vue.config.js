@@ -1,8 +1,21 @@
+const path = require('path');
+const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
 module.exports = {
   baseUrl: '/loVue-elm/',
   outputDir: 'docs',
   css: {
     sourceMap: true
+  },
+  configureWebpack: (config) => {
+    config.plugins.push(new SkeletonWebpackPlugin({
+      webpackConfig: {
+        entry: {
+          app: path.join(__dirname, './src/skeleton.js'),
+        }
+      },
+      minimize: true,
+      quiet: true
+    }))
   },
   pwa: {
     name: 'loVue ELM App',
