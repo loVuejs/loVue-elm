@@ -8,10 +8,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './iconfont/iconfont.css'
+import './registerServiceWorker'
 
 Vue.use(VueLazyload, {
-  loading: 'https://raw.githubusercontent.com/fxss5201/second-development/master/src/assets/loading.gif',
-  error: 'https://raw.githubusercontent.com/fxss5201/second-development/master/src/assets/error.jpg',
+  loading: 'https://raw.githubusercontent.com/loVuejs/loVue-elm/master/src/assets/loading.gif',
+  error: 'https://raw.githubusercontent.com/loVuejs/loVue-elm/master/src/assets/error.jpg',
   attempt: 3
 })
 Vue.use(MintUI)

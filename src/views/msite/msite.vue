@@ -15,7 +15,7 @@
                         v-for="(foodItem, index) in foodTypes" :key="foodItem.id"
                         v-if="index < 8"
                         :to="{ path: '/food', query: { geohash: addressInfo.geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link) } }" >
-                        <img class="food-type-img" :src="'https://fuss10.elemecdn.com/' + foodItem.image_url">
+                        <img class="food-type-img" v-if="foodItem.image_url" v-lazy="'https://fuss10.elemecdn.com/' + foodItem.image_url">
                         <div class="food-type-title">{{ foodItem.title }}</div>
                     </router-link>
                 </div>
@@ -26,13 +26,13 @@
                         v-for="(foodItem, index) in foodTypes" :key="foodItem.id"
                         v-if="index >= 8"
                         :to="{ path: '/food', query: { geohash: addressInfo.geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link) } }" >
-                        <img class="food-type-img" :src="'https://fuss10.elemecdn.com/' + foodItem.image_url">
+                        <img class="food-type-img" v-if="foodItem.image_url" v-lazy="'https://fuss10.elemecdn.com/' + foodItem.image_url">
                         <div class="food-type-title">{{ foodItem.title }}</div>
                     </router-link>
                 </div>
             </mt-swipe-item>
         </mt-swipe>
-
+        <layerMsg v-if="layerMsgFlag" :text="layerMsgText" @close="layerMsgFlag = false"></layerMsg>
         <!-- <stars :length="5" :value="stars" @click-index="(event) => { stars = event }"></stars> -->
         <loading v-if="loadingType"></loading>
     </div>
@@ -43,6 +43,7 @@ import { Swipe } from 'mint-ui';
 import axios from 'axios';
 const CancelToken = axios.CancelToken;
 import stars from './../../components/stars.vue';
+import layerMsg from './../../components/layerMsg.vue';
 import loading from './../../components/loading.vue';
 
 export default {
@@ -51,11 +52,13 @@ export default {
             title: '',
             addressInfo: {},
             foodTypes: [],
-            loadingType: false
+            loadingType: true,
+            layerMsgFlag: false,
+            layerMsgText: ''
         }
     },
     components: {
-        stars, loading
+        stars, layerMsg, loading
     },
     mounted(){
         if(this.$route.query.geohash){
@@ -106,11 +109,8 @@ export default {
                     this.addressInfo = response.data;
                     this.title = response.data.name;
                 }else{
-                    Toast({
-                        message: '定位失败',
-                        position: 'bottom',
-                        duration: 2000
-                    });
+                    this.layerMsgFlag = true;
+                    this.layerMsgText = '定位失败';
                 }
             })
             .catch(function (error) {
@@ -131,11 +131,8 @@ export default {
                 if(response.status === 200 && response.statusText === 'OK'){
                     this.foodTypes = response.data;
                 }else{
-                    Toast({
-                        message: '食品分类获取失败，请刷新页面重试',
-                        position: 'bottom',
-                        duration: 2000
-                    });
+                    this.layerMsgFlag = true;
+                    this.layerMsgText = '食品分类获取失败，请刷新页面重试';
                 }
             })
             .catch(function (error) {
