@@ -3,9 +3,7 @@
         <div class="layer-box">
             <div class="layer-wrapper">
                 <div class="layer-img" :style="{ backgroundPositionY: -( positionY % 7) * 58 + 'px' }"></div>
-                <svg class="layer-ellipse" xmlns="http://www.w3.org/2000/svg" version="1.1">
-                    <ellipse cx="26" cy="10" rx="26" ry="10" style="fill: #ddd; stroke: none;"></ellipse>
-                </svg>
+                <div class="layer-ellipse"></div>
             </div>
         </div>
     </transition>
@@ -66,6 +64,8 @@ export default {
 .layer-ellipse
     width: 55px; 
     height: 20px;
+    background: #ddd;
+    border-radius: 50%;
     animation: ellipse 0.6s infinite ease-in-out;
 @keyframes ellipse
     0%

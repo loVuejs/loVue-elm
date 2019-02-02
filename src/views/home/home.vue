@@ -1,9 +1,9 @@
 <template>
     <div class="page-box text-left">
         <mt-header fixed>
-            <router-link to="/" slot="left">
+            <div @click="reload" slot="left">
                 <mt-button>ele.me</mt-button>
-            </router-link>
+            </div>
             <router-link to="/login" slot="right">
                 <mt-button>登录 | 注册</mt-button>
             </router-link>
@@ -112,6 +112,9 @@ export default {
                     console.log('Rquest canceled', error.message);
                 }
             });
+        },
+        reload(){
+            location.reload();
         }
     }
 }

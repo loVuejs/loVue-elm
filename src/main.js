@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import './style/normalize.css'
 import './plugins/axios'
+import VueLazyload from 'vue-lazyload'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import App from './App.vue'
@@ -8,6 +9,11 @@ import router from './router'
 import store from './store'
 import './iconfont/iconfont.css'
 
+Vue.use(VueLazyload, {
+  loading: 'https://raw.githubusercontent.com/fxss5201/second-development/master/src/assets/loading.gif',
+  error: 'https://raw.githubusercontent.com/fxss5201/second-development/master/src/assets/error.jpg',
+  attempt: 3
+})
 Vue.use(MintUI)
 Vue.config.productionTip = false
 

@@ -33,13 +33,13 @@
             </mt-swipe-item>
         </mt-swipe>
 
-        <stars :length="5" :value="stars" @click-index="(event) => { stars = event }"></stars>
-        <loading></loading>
+        <!-- <stars :length="5" :value="stars" @click-index="(event) => { stars = event }"></stars> -->
+        <loading v-if="loadingType"></loading>
     </div>
 </template>
 
 <script>
-import { Toast, Indicator, Swipe } from 'mint-ui';
+import { Swipe } from 'mint-ui';
 import axios from 'axios';
 const CancelToken = axios.CancelToken;
 import stars from './../../components/stars.vue';
@@ -51,7 +51,7 @@ export default {
             title: '',
             addressInfo: {},
             foodTypes: [],
-            stars: 2.3
+            loadingType: false
         }
     },
     components: {
