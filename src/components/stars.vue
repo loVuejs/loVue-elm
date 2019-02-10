@@ -3,8 +3,13 @@
         <div class="stars-item"
             v-for="(item, index) in length" :key="index"
             @click="clickIndex(index)">
-            <i class="iconfont" :class="getClass(index)"></i>
+            <i class="iconfont" 
+                :class="getClass(index)"
+                :style="{ 'font-size': size + 'px',color }"></i>
         </div>
+        <div class="stars-number" 
+            v-if="showNumber"
+            :style="{ 'font-size': size + 'px',color }">{{ value }}</div>
     </div>
 </template>
 
@@ -19,6 +24,18 @@ export default {
         value: {
             type: Number,
             default: 0
+        },
+        size: {
+            type: Number,
+            default: 14
+        },
+        color: {
+            type: String,
+            default: '#ff9a0d'
+        },
+        showNumber: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {
@@ -52,8 +69,9 @@ export default {
 .stars-item
     margin: 0 2px;
     display: inline-block;
-    font-size: 14px;
 
-.stars-item .iconfont
-    color: #ff9a0d;
+.stars-number
+    display: inline-block;
+    margin: 0 4px;
+
 </style>
