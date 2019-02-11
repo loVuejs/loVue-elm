@@ -67,7 +67,7 @@ export default {
     font-size: 0;
 
 .stars-item
-    margin: 0 2px;
+    margin: 0;
     display: inline-block;
 
 .stars-number
