@@ -8,7 +8,6 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './iconfont/iconfont.css'
-import './registerServiceWorker'
 
 Vue.use(VueLazyload, {
   loading: 'https://raw.githubusercontent.com/loVuejs/loVue-elm/master/src/assets/loading.gif',
