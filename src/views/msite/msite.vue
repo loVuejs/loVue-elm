@@ -9,31 +9,40 @@
             </router-link>
         </mt-header>
         <div class="food-type-list" id="foodTypeList">
-            <mt-swipe v-if="foodTypes.length" :auto="0">
+            <mt-swipe :auto="0">
                 <mt-swipe-item>
-                    <div class="food-type-slid">
-                        <router-link class="food-type-item" 
-                            v-for="(foodItem, index) in foodTypes" :key="foodItem.id"
-                            v-if="index < 8"
-                            :to="{ path: '/food', query: { geohash: addressInfo.geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link) } }" >
-                            <img class="food-type-img" v-if="foodItem.image_url" v-lazy.foodTypeList="'https://fuss10.elemecdn.com/' + foodItem.image_url">
-                            <div class="food-type-title">{{ foodItem.title }}</div>
-                        </router-link>
-                    </div>
+                    <template v-if="foodTypes.length">
+                        <div class="food-type-slid">
+                            <router-link class="food-type-item" 
+                                v-for="(foodItem, index) in foodTypes" :key="foodItem.id"
+                                v-if="index < 8"
+                                :to="{ path: '/food', query: { geohash: addressInfo.geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link) } }" >      
+                                <img class="food-type-img" v-if="foodItem.image_url" v-lazy.foodTypeList="'https://fuss10.elemecdn.com/' + foodItem.image_url">
+                                <div class="food-type-title">{{ foodItem.title }}</div>
+                            </router-link>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <msite-types-empty></msite-types-empty>
+                    </template>
                 </mt-swipe-item>
                 <mt-swipe-item>
-                    <div class="food-type-slid">
-                        <router-link class="food-type-item" 
-                            v-for="(foodItem, index) in foodTypes" :key="foodItem.id"
-                            v-if="index >= 8"
-                            :to="{ path: '/food', query: { geohash: addressInfo.geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link) } }" >
-                            <img class="food-type-img" v-if="foodItem.image_url" v-lazy="'https://fuss10.elemecdn.com/' + foodItem.image_url">
-                            <div class="food-type-title">{{ foodItem.title }}</div>
-                        </router-link>
-                    </div>
+                    <template v-if="foodTypes.length">
+                        <div class="food-type-slid">
+                            <router-link class="food-type-item" 
+                                v-for="(foodItem, index) in foodTypes" :key="foodItem.id"
+                                v-if="index >= 8"
+                                :to="{ path: '/food', query: { geohash: addressInfo.geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link) } }" >
+                                <img class="food-type-img" v-if="foodItem.image_url" v-lazy="'https://fuss10.elemecdn.com/' + foodItem.image_url">
+                                <div class="food-type-title">{{ foodItem.title }}</div>
+                            </router-link>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <msite-types-empty></msite-types-empty>
+                    </template>
                 </mt-swipe-item>
             </mt-swipe>
-            <img v-else class="full" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTA4MCA0OTAiPjxkZWZzPjxwYXRoIGlkPSJiIiBkPSJNMCAwaDEwODB2NDg5SDB6Ii8+PGZpbHRlciBpZD0iYSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSIgeD0iLTUwJSIgeT0iLTUwJSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij48ZmVPZmZzZXQgZHk9IjEiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiLz48ZmVDb2xvck1hdHJpeCBpbj0ic2hhZG93T2Zmc2V0T3V0ZXIxIiB2YWx1ZXM9IjAgMCAwIDAgMC45MzMzMzMzMzMgMCAwIDAgMCAwLjkzMzMzMzMzMyAwIDAgMCAwIDAuOTMzMzMzMzMzIDAgMCAwIDEgMCIvPjwvZmlsdGVyPjwvZGVmcz48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnPjx1c2UgZmlsbD0iIzAwMCIgZmlsdGVyPSJ1cmwoI2EpIiB4bGluazpocmVmPSIjYiIvPjx1c2UgZmlsbD0iI0ZGRiIgeGxpbms6aHJlZj0iI2IiLz48L2c+PGcgZmlsbD0iI0Y2RjZGNiI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzYgMzYpIj48cGF0aCBkPSJNOSAxMzloMTAwdjM0SDl6Ii8+PGVsbGlwc2UgY3g9IjU5IiBjeT0iNTkiIHJ4PSI1OSIgcnk9IjU5Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM0NiAzNikiPjxwYXRoIGQ9Ik05IDEzOWgxMDB2MzRIOXoiLz48ZWxsaXBzZSBjeD0iNTkiIGN5PSI1OSIgcng9IjU5IiByeT0iNTkiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjE2IDM2KSI+PHBhdGggZD0iTTkgMTM5aDEwMHYzNEg5eiIvPjxlbGxpcHNlIGN4PSI1OSIgY3k9IjU5IiByeD0iNTkiIHJ5PSI1OSIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4ODYgMzYpIj48cGF0aCBkPSJNOSAxMzloMTAwdjM0SDl6Ii8+PGVsbGlwc2UgY3g9IjU5IiBjeT0iNTkiIHJ4PSI1OSIgcnk9IjU5Ii8+PC9nPjwvZz48ZyBmaWxsPSIjRjZGNkY2Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NiAyNTIpIj48cGF0aCBkPSJNOSAxMzloMTAwdjM0SDl6Ii8+PGVsbGlwc2UgY3g9IjU5IiBjeT0iNTkiIHJ4PSI1OSIgcnk9IjU5Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM0NiAyNTIpIj48cGF0aCBkPSJNOSAxMzloMTAwdjM0SDl6Ii8+PGVsbGlwc2UgY3g9IjU5IiBjeT0iNTkiIHJ4PSI1OSIgcnk9IjU5Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYxNiAyNTIpIj48cGF0aCBkPSJNOSAxMzloMTAwdjM0SDl6Ii8+PGVsbGlwc2UgY3g9IjU5IiBjeT0iNTkiIHJ4PSI1OSIgcnk9IjU5Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg4NiAyNTIpIj48cGF0aCBkPSJNOSAxMzloMTAwdjM0SDl6Ii8+PGVsbGlwc2UgY3g9IjU5IiBjeT0iNTkiIHJ4PSI1OSIgcnk9IjU5Ii8+PC9nPjwvZz48L2c+PC9zdmc+">
         </div>
         <div class="list-wrapper">
             <div class="list-head">
@@ -48,7 +57,6 @@
                 :num="10"></storeList>
         </div>
         <layerMsg v-if="layerMsgFlag" :text="layerMsgText" @close="layerMsgFlag = false"></layerMsg>
-        <!-- <stars :length="5" :value="stars" @click-index="(event) => { stars = event }"></stars> -->
         <loading v-if="loadingType"></loading>
     </div>
 </template>
@@ -57,6 +65,8 @@
 import layerMsg from './../../components/layerMsg.vue';
 import loading from './../../components/loading.vue';
 import storeList from './../../components/storeList.vue';
+import msiteTypesEmpty from './../../components/skeleton/msiteTypesEmpty.vue';
+import msiteListEmpty from './../../components/skeleton/msiteListEmpty.vue';
 
 export default {
     data(){
@@ -73,7 +83,7 @@ export default {
         }
     },
     components: {
-        layerMsg, loading, storeList
+        layerMsg, loading, storeList, msiteTypesEmpty, msiteListEmpty
     },
     mounted(){
         if(this.$route.query.geohash){

@@ -20,7 +20,7 @@
             <mt-cell :title="guessCity" :to="'/city/' + guessCityid" is-link class="border-bottom"></mt-cell>
         </div>
         <div v-if="hotCity.length > 0" class="city-container margin-bottom">
-            <h3>热门城市：</h3>
+            <h3>热门城市</h3>
             <ul class="city-box">
                 <router-link tag="li" v-for="item in hotCity" :to="'/city/' + item.id" :key="item.id">
                     {{item.name}}
@@ -151,8 +151,8 @@ h3
     flex: 0 0 25%;
     text-align: center;
     line-height: 40px;
-    border-top: 1px solid #eee;
-    border-left: 1px solid #eee;
+    border-top: 1px solid $ddd;
+    border-left: 1px solid $ddd;
 
 .city-box li:first-child
     border-left: 0;

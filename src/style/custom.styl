@@ -180,16 +180,17 @@ html, body
             .head-icon
                 position: absolute;
                 left: 0;
-                top: 0;
-                padding: 2px 4px;
+                top: 0;    
+                padding: 3px 4px 2px;
                 font-size: 12px;
+                line-height: 12px;
                 color: $blank;
                 text-align: center;
                 background: #ffd930;
                 border-radius: 2px;
             .head-title
                 margin: 0;
-                font-size: 16px;
+                font-size: 14px;
                 color: $blank;
                 text-align: left;
             .head-right
@@ -234,6 +235,37 @@ html, body
                 color: $gray;
             .blue
                 color: $blue;
+
+
+// 全局骨架屏布局
+.skeleton-box
+    position: relative;
+.skeleton-bac-animation
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,hsla(0,0%,100%,0),hsla(0,0%,100%,.5) 50%,hsla(0,0%,100%,0) 80%);
+    background-size: 30% 100%;
+    background-repeat: no-repeat;
+    animation: backpos .9s ease-in-out 0s infinite;
+@keyframes backpos 
+    0%
+        background-position-x: -200px
+    to
+        background-position-x: calc(200px + 100%)
+.skeleton-column, 
+.skeleton-row 
+    display: flex;
+.skeleton-row
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+.skeleton-column
+    flex-direction: column;
+    align-items: center;
+
+
 // 覆盖 mint-ui 样式
 .mint-cell:last-child,
 .mint-cell-wrapper

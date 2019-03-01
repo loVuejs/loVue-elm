@@ -9,7 +9,13 @@ import router from './router'
 import store from './store'
 import './iconfont/iconfont.css'
 
+import skeletonRect from './components/skeleton/rect/index.js'
+import skeletonCircle from './components/skeleton/circle/index.js'
+
 Vue.use(MintUI)
+Vue.use(skeletonRect)
+Vue.use(skeletonCircle)
+
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
