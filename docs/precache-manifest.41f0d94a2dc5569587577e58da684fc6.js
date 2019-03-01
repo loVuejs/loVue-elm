@@ -4,24 +4,24 @@ self.__precacheManifest = [
     "url": "/loVue-elm/fonts/iconfont.78468f8f.woff"
   },
   {
-    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
+    "revision": "735ab4f94fbcd57074377afca324c813",
     "url": "/loVue-elm/robots.txt"
   },
   {
-    "revision": "7ff7db5c70f908fc9419",
-    "url": "/loVue-elm/js/chunk-vendors.8b6d5319.js"
+    "revision": "88e26d746ac0046b6ee8",
+    "url": "/loVue-elm/js/chunk-vendors.564891e9.js"
   },
   {
-    "revision": "988e13cc778c41b08c6d",
-    "url": "/loVue-elm/js/app.71223c11.js"
+    "revision": "fe02b4549acdc9a36a2c",
+    "url": "/loVue-elm/js/app.a99cab60.js"
   },
   {
-    "revision": "010c5b77ca60503def1947793a1dfe61",
+    "revision": "50f65c5d9b286e864d4809a8cd0d315d",
     "url": "/loVue-elm/index.html"
   },
   {
-    "revision": "7537787e831a4f0863788f57a4209f30",
-    "url": "/loVue-elm/img/iconfont.7537787e.svg"
+    "revision": "9e8f3952f543e7ffdbec04f618a04e34",
+    "url": "/loVue-elm/img/iconfont.9e8f3952.svg"
   },
   {
     "revision": "7a1ee6db87af65e71ab10a796063bf52",
@@ -36,11 +36,11 @@ self.__precacheManifest = [
     "url": "/loVue-elm/fonts/iconfont.3f9f44fb.ttf"
   },
   {
-    "revision": "7ff7db5c70f908fc9419",
-    "url": "/loVue-elm/css/chunk-vendors.a06fff79.css"
+    "revision": "88e26d746ac0046b6ee8",
+    "url": "/loVue-elm/css/chunk-vendors.daafccb9.css"
   },
   {
-    "revision": "988e13cc778c41b08c6d",
-    "url": "/loVue-elm/css/app.83358d1f.css"
+    "revision": "fe02b4549acdc9a36a2c",
+    "url": "/loVue-elm/css/app.98f4b288.css"
   }
 ];
