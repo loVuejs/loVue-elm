@@ -15,13 +15,12 @@
 
 <script>
 import { IndexList, IndexSection, Indicator } from 'mint-ui';
-import axios from 'axios';
-const CancelToken = axios.CancelToken;
 
 export default {
     data(){
         return {
             groupCity: {},   // 所有城市列表
+            axiosCancel: [],
         }
     },
     mounted(){
@@ -42,7 +41,8 @@ export default {
             }
         },
         getGroupCity() {
-            var self = this;
+            let self = this,
+                CancelToken = axios.CancelToken;
             Indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
@@ -52,8 +52,8 @@ export default {
                     type: 'group'
                 },
                 cancelToken: new CancelToken(function executor(c) {
-                    self.$store.commit('axiosCancel', c)
-                })
+                    self.axiosCancel.push(c);
+                }),
             })
             .then(response => {
                 Indicator.close();
@@ -61,8 +61,7 @@ export default {
                     this.groupCity = response.data;
                 }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(error => {
                 if(axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
                 }
@@ -81,6 +80,11 @@ export default {
             }
             return sortObj;
         }
+    },
+    destroyed(){
+        this.axiosCancel.forEach((cancel) => {
+            cancel();
+        });
     }
 }
 </script>

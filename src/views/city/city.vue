@@ -52,8 +52,6 @@
 <script>
 import { Toast, Indicator } from 'mint-ui';
 import localforage from 'localforage';
-import axios from 'axios';
-const CancelToken = axios.CancelToken;
 
 export default {
     data(){
@@ -64,6 +62,7 @@ export default {
             addressAround: [],
             searchHistory: [],
             listIndex: 0, // 0显示搜索历史，1显示搜索结果
+            axiosCancel: []
         }
     },
     mounted(){
@@ -80,11 +79,12 @@ export default {
             }
         },
         getCityInfo(){
-            let self = this;
+            let self = this,
+                CancelToken = axios.CancelToken;
             axios.get('https://elm.cangdu.org/v1/cities/' + self.$route.params.cityId, {
                 cancelToken: new CancelToken(function executor(c) {
-                    self.$store.commit('axiosCancel', c)
-                })
+                    self.axiosCancel.push(c);
+                }),
             })
             .then(response => {
                 if(response.status === 200 && response.statusText === 'OK'){
@@ -103,8 +103,7 @@ export default {
                     });
                 }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(error => {
                 if(axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
                 }
@@ -119,7 +118,8 @@ export default {
                 });
                 return false;
             }
-            let self = this;
+            let self = this,
+                CancelToken = axios.CancelToken;
             Indicator.open({
                 text: '搜索中...',
                 spinnerType: 'fading-circle'
@@ -130,8 +130,8 @@ export default {
                     keyword: self.address
                 },
                 cancelToken: new CancelToken(function executor(c) {
-                    self.$store.commit('axiosCancel', c)
-                })
+                    self.axiosCancel.push(c);
+                }),
             })
             .then(response => {
                 Indicator.close();
@@ -146,8 +146,7 @@ export default {
                     });
                 }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(error => {
                 if(axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
                 }
@@ -198,6 +197,11 @@ export default {
             });
         }
     },
+    destroyed(){
+        this.axiosCancel.forEach((cancel) => {
+            cancel();
+        });
+    }
 }
 </script>
 

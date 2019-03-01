@@ -49,8 +49,6 @@
 
 <script>
 import { Toast, Indicator, Switch } from 'mint-ui';
-import axios from 'axios';
-const CancelToken = axios.CancelToken;
 
 export default {
     data(){
@@ -60,6 +58,7 @@ export default {
             passwordType: false, // 密码是否可看
             code: '',
             codeImg: '',
+            axiosCancel: []
         }
     },
     mounted(){
@@ -78,10 +77,11 @@ export default {
             }
         },
         getCodeImg(){
-            var self = this;
+            var self = this,
+                CancelToken = this.axios.CancelToken;
             axios.post('https://elm.cangdu.org/v1/captchas', {
                 cancelToken: new CancelToken(function executor(c) {
-                    self.$store.commit('axiosCancel', c)
+                    self.axiosCancel.push(c);
                 })
             })
             .then(response => {
@@ -95,9 +95,8 @@ export default {
                     });
                 }
             })
-            .catch(function (error) {
-                console.log(error);
-                if(axios.isCancel(error)){
+            .catch(error => {
+                if(this.axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
                 }
             });
@@ -131,7 +130,8 @@ export default {
                 text: '加载中...',
                 spinnerType: 'fading-circle'
             });
-            var self = this;
+            var self = this,
+                CancelToken = this.axios.CancelToken;
             axios.post('https://elm.cangdu.org/v2/login', {
                 params: {
                     username: self.account,
@@ -139,7 +139,7 @@ export default {
                     captcha_code: self.code
                 },
                 cancelToken: new CancelToken(function executor(c) {
-                    self.$store.commit('axiosCancel', c)
+                    self.axiosCancel.push(c);
                 })
             })
             .then(response => {
@@ -165,9 +165,8 @@ export default {
                     });
                 }
             })
-            .catch(function (error) {
-                console.log(error);
-                if(axios.isCancel(error)){
+            .catch(error => {
+                if(this.axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
                 }
             });
@@ -175,6 +174,11 @@ export default {
     },
     computed: {
         
+    },
+    destroyed(){
+        this.axiosCancel.forEach((cancel) => {
+            cancel();
+        });
     }
 }
 </script>

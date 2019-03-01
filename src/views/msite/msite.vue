@@ -55,8 +55,6 @@
 
 <script>
 import { Swipe } from 'mint-ui';
-import axios from 'axios';
-const CancelToken = axios.CancelToken;
 import layerMsg from './../../components/layerMsg.vue';
 import loading from './../../components/loading.vue';
 import storeList from './../../components/storeList.vue';
@@ -72,6 +70,7 @@ export default {
             layerMsgText: '',
             storeList: [],
             geohash: '',
+            axiosCancel: [],
         }
     },
     components: {
@@ -93,11 +92,12 @@ export default {
     },
     methods: {
         getGeohash(){
-            let self = this;
+            let self = this,
+                CancelToken = axios.CancelToken;
             axios.get('https://elm.cangdu.org/v2/pois/' + self.$route.query.geohash, {
                 cancelToken: new CancelToken(function executor(c) {
-                    self.$store.commit('axiosCancel', c)
-                })
+                    self.axiosCancel.push(c);
+                }),
             })
             .then(response => {
                 if(response.status === 200 && response.statusText === 'OK'){
@@ -106,22 +106,22 @@ export default {
                     this.getStoreList();
                 }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(error => {
                 if(axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
                 }
             });
         },
         getGuessCity() {
-            var self = this;
+            var self = this,
+                CancelToken = axios.CancelToken;
             axios.get('https://elm.cangdu.org/v1/cities', {
                 params: {
                     type: 'guess'
                 },
                 cancelToken: new CancelToken(function executor(c) {
-                    self.$store.commit('axiosCancel', c)
-                })
+                    self.axiosCancel.push(c);
+                }),
             })
             .then(response => {
                 if(response.status === 200 && response.statusText === 'OK'){
@@ -134,19 +134,19 @@ export default {
                     this.layerMsgText = '定位失败';
                 }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(error => {
                 if(axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
                 }
             });
         },
         getFoodTypes(){
-            var self = this;
+            var self = this,
+                CancelToken = axios.CancelToken;
             axios.get('https://elm.cangdu.org/v2/index_entry', {
                 cancelToken: new CancelToken(function executor(c) {
-                    self.$store.commit('axiosCancel', c)
-                })
+                    self.axiosCancel.push(c);
+                }),
             })
             .then(response => {
                 if(response.status === 200 && response.statusText === 'OK'){
@@ -156,23 +156,23 @@ export default {
                     this.layerMsgText = '食品分类获取失败，请刷新页面重试';
                 }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(error => {
                 if(axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
                 }
             });
         },
         getStoreList(){
-            let self = this;
+            let self = this,
+                CancelToken = axios.CancelToken;
             axios.get('https://elm.cangdu.org/shopping/restaurants', {
                 params: {
                     latitude: self.addressInfo.latitude,
                     longitude: self.addressInfo.longitude
                 },
                 cancelToken: new CancelToken(function executor(c) {
-                    self.$store.commit('axiosCancel', c)
-                })
+                    self.axiosCancel.push(c);
+                }),
             })
             .then(response => {
                 if(response.status === 200 && response.statusText === 'OK'){
@@ -184,8 +184,7 @@ export default {
                     this.layerMsgText = '加载失败，请刷新页面';
                 }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(error => {
                 if(axios.isCancel(error)){
                     console.log('Rquest canceled', error.message);
                 }
@@ -200,6 +199,11 @@ export default {
     			return ''
     		}
         },
+    },
+    destroyed(){
+        this.axiosCancel.forEach((cancel) => {
+            cancel();
+        });
     }
 }
 </script>
