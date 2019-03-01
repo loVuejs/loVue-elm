@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { IndexList, IndexSection, Indicator } from 'mint-ui';
-
 export default {
     data(){
         return {
@@ -28,10 +26,6 @@ export default {
         // 获取所有城市
         this.getGroupCity();
     },
-    components:{
-        IndexList,
-        IndexSection
-    },
     methods: {
         back(){
             if(document.referrer){
@@ -43,7 +37,7 @@ export default {
         getGroupCity() {
             let self = this,
                 CancelToken = axios.CancelToken;
-            Indicator.open({
+            this.$indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
             });
@@ -56,7 +50,7 @@ export default {
                 }),
             })
             .then(response => {
-                Indicator.close();
+                this.$indicator.close();
                 if(response.status === 200 && response.statusText === 'OK'){
                     this.groupCity = response.data;
                 }

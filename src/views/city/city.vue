@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import { Toast, Indicator } from 'mint-ui';
 import localforage from 'localforage';
 
 export default {
@@ -96,7 +95,7 @@ export default {
                         console.log('本地城市信息保存失败');
                     });
                 }else{
-                    Toast({
+                    this.$toast({
                         message: '城市获取失败，请刷新页面',
                         position: 'bottom',
                         duration: 2000
@@ -111,7 +110,7 @@ export default {
         },
         getAddressAround(){
             if(!this.address){
-                Toast({
+                this.$toast({
                     message: '请输入地址',
                     position: 'bottom',
                     duration: 2000
@@ -120,7 +119,7 @@ export default {
             }
             let self = this,
                 CancelToken = axios.CancelToken;
-            Indicator.open({
+            this.$indicator.open({
                 text: '搜索中...',
                 spinnerType: 'fading-circle'
             });
@@ -134,12 +133,12 @@ export default {
                 }),
             })
             .then(response => {
-                Indicator.close();
+                this.$indicator.close();
                 if(response.status === 200 && response.statusText === 'OK'){
                     this.renderList = this.addressAround = response.data;
                     this.listIndex = 1;
                 }else{
-                    Toast({
+                    this.$toast({
                         message: '搜索地址失败，请重新搜索',
                         position: 'bottom',
                         duration: 2000
@@ -189,7 +188,7 @@ export default {
                     this.renderList = this.addressAround;
                     this.listIndex = 1;
                 }
-                Toast({
+                this.$toast({
                     message: '搜索历史已清空',
                     position: 'bottom',
                     duration: 2000

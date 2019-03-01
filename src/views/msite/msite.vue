@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import { Swipe } from 'mint-ui';
 import layerMsg from './../../components/layerMsg.vue';
 import loading from './../../components/loading.vue';
 import storeList from './../../components/storeList.vue';

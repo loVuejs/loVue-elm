@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import { Indicator } from 'mint-ui';
 import layerMsg from './../../components/layerMsg.vue';
 export default {
     data(){
@@ -88,7 +87,7 @@ export default {
         getHotCity() {
             let self = this,
                 CancelToken = axios.CancelToken;
-            Indicator.open({
+            this.$indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
             });
@@ -101,7 +100,7 @@ export default {
                 }),
             })
             .then(response => {
-                Indicator.close();
+                this.$indicator.close();
                 if(response.status === 200 && response.statusText === 'OK'){
                     this.hotCity = response.data;
                 }

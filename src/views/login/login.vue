@@ -48,8 +48,6 @@
 </template>
 
 <script>
-import { Toast, Indicator, Switch } from 'mint-ui';
-
 export default {
     data(){
         return {
@@ -88,7 +86,7 @@ export default {
                 if(response.status === 200 && response.statusText === 'OK'){
                     this.codeImg = response.data.code;
                 }else{
-                    Toast({
+                    this.$toast({
                         message: '获取验证码失败，请重新获取',
                         position: 'bottom',
                         duration: 2000
@@ -103,7 +101,7 @@ export default {
         },
         login(){
             if(!this.account){
-                Toast({
+                this.$toast({
                     message: '请输入账号',
                     position: 'bottom',
                     duration: 2000
@@ -111,7 +109,7 @@ export default {
                 return false;
             }
             if(!this.password){
-                Toast({
+                this.$toast({
                     message: '请输入密码',
                     position: 'bottom',
                     duration: 2000
@@ -119,14 +117,14 @@ export default {
                 return false;
             }
             if(!this.code){
-                Toast({
+                this.$toast({
                     message: '请输入验证码',
                     position: 'bottom',
                     duration: 2000
                 });
                 return false;
             }
-            Indicator.open({
+            this.$indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
             });
@@ -143,7 +141,7 @@ export default {
                 })
             })
             .then(response => {
-                Indicator.close();
+                this.$indicator.close();
                 if(response.status === 200 && response.statusText === 'OK'){
                     if(response.data.status == 1){
 
@@ -151,14 +149,14 @@ export default {
                         if(response.data.type === 'ERROR_CAPTCHA'){
                             this.getCodeImg();
                         }
-                        Toast({
+                        this.$toast({
                             message: response.data.message,
                             position: 'bottom',
                             duration: 2000
                         });
                     }
                 }else{
-                    Toast({
+                    this.$toast({
                         message: '登录失败，请重新登录',
                         position: 'bottom',
                         duration: 2000
