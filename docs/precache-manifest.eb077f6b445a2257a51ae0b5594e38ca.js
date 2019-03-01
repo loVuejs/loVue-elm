@@ -12,11 +12,11 @@ self.__precacheManifest = [
     "url": "/loVue-elm/js/chunk-vendors.564891e9.js"
   },
   {
-    "revision": "fe02b4549acdc9a36a2c",
-    "url": "/loVue-elm/js/app.a99cab60.js"
+    "revision": "426fc8454d467c61dc39",
+    "url": "/loVue-elm/js/app.e0561262.js"
   },
   {
-    "revision": "50f65c5d9b286e864d4809a8cd0d315d",
+    "revision": "fe4b4582889b441bf755254bec490ccb",
     "url": "/loVue-elm/index.html"
   },
   {
@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "/loVue-elm/css/chunk-vendors.daafccb9.css"
   },
   {
-    "revision": "fe02b4549acdc9a36a2c",
-    "url": "/loVue-elm/css/app.98f4b288.css"
+    "revision": "426fc8454d467c61dc39",
+    "url": "/loVue-elm/css/app.747c83bb.css"
   }
 ];
