@@ -8,7 +8,7 @@
                 <mt-button>登录 | 注册</mt-button>
             </router-link>
         </mt-header>
-        <div class="food-type-list">
+        <div class="food-type-list" id="foodTypeList">
             <mt-swipe v-if="foodTypes.length" :auto="0">
                 <mt-swipe-item>
                     <div class="food-type-slid">
@@ -16,7 +16,7 @@
                             v-for="(foodItem, index) in foodTypes" :key="foodItem.id"
                             v-if="index < 8"
                             :to="{ path: '/food', query: { geohash: addressInfo.geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link) } }" >
-                            <img class="food-type-img" v-if="foodItem.image_url" v-lazy="'https://fuss10.elemecdn.com/' + foodItem.image_url">
+                            <img class="food-type-img" v-if="foodItem.image_url" v-lazy.foodTypeList="'https://fuss10.elemecdn.com/' + foodItem.image_url">
                             <div class="food-type-title">{{ foodItem.title }}</div>
                         </router-link>
                     </div>
@@ -229,6 +229,13 @@ export default {
     font-size: 14px;
     color: $blank;
     text-decoration: none;
+    img[lazy=loading] 
+        width: 29px;
+        height: 29px;
+        padding: 8px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #efefef;
 
 .food-type-img
     margin-bottom: 6px;
