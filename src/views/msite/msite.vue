@@ -48,7 +48,7 @@
             <div class="list-head">
                 <div class="item">
                     <i class="iconfont icon-store"></i>
-                    <span>附近商家</span>
+                    <span>附近商家：</span>
                 </div>
             </div>
             <storeList 
