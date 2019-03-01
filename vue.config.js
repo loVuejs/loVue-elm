@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: '/loVue-elm/',
+  publicPath: '/loVue-elm/',
   outputDir: 'docs',
   css: {
     sourceMap: true
