@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/loVue-elm/precache-manifest.0d703710cf515c84490fabf88a4c3107.js"
+  "/loVue-elm/precache-manifest.12ec049fb140fa4df0541a38012e8318.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "loVue-elm"});
