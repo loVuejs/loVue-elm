@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-let Home = () => import(/* webpackChunkName: "group-home" */ './views/home/home.vue')
-let AllCity = () => import(/* webpackChunkName: "group-home" */ './views/home/allCity.vue')
-let Login = () => import(/* webpackChunkName: "group-login" */ './views/login/login.vue')
-let City = () => import(/* webpackChunkName: "group-city" */ './views/city/city.vue')
-let Msite = () => import(/* webpackChunkName: "group-msite" */ './views/msite/msite.vue')
-let Food = () => import(/* webpackChunkName: "group-food" */ './views/food/food.vue')
+const Home = () => import(/* webpackChunkName: "group-home" */ './views/home/home.vue')
+const AllCity = () => import(/* webpackChunkName: "group-home" */ './views/home/allCity.vue')
+const Login = () => import(/* webpackChunkName: "group-login" */ './views/login/login.vue')
+const City = () => import(/* webpackChunkName: "group-city" */ './views/city/city.vue')
+const Msite = () => import(/* webpackChunkName: "group-msite" */ './views/msite/msite.vue')
+const Food = () => import(/* webpackChunkName: "group-food" */ './views/food/food.vue')
 
 Vue.use(Router)
 

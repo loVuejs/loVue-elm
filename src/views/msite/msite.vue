@@ -217,7 +217,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 @import './../../style/custom.styl'
 
 .icon-search
