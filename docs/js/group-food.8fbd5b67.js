@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["group-food"],{"46b4":function(e,o,n){"use strict";n.r(o);var t=function(){var e=this,o=e.$createElement,n=e._self._c||o;return n("div",[e._v("特色商铺列表页")])},u=[],c={},i=c,r=n("2877"),s=Object(r["a"])(i,t,u,!1,null,"069c922a",null);s.options.__file="food.vue";o["default"]=s.exports}}]);
-//# sourceMappingURL=group-food.8fbd5b67.js.map
