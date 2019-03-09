@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["group-food"],{"46b4":function(n,e,t){"use strict";t.r(e);var o=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",[n._v("特色商铺列表页")])},u=[],l={},r=l,c=t("2877"),s=Object(c["a"])(r,o,u,!1,null,null,null);e["default"]=s.exports}}]);
-//# sourceMappingURL=group-food-legacy.754c3163.js.map

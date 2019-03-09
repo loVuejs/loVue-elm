@@ -8,6 +8,7 @@ import router from './router'
 import store from './store'
 import './iconfont/iconfont.css'
 import VueProgressBar from 'vue-progressbar'
+import './style/custom.styl'
 
 import skeletonRect from './components/skeleton/rect/index.js'
 import skeletonCircle from './components/skeleton/circle/index.js'

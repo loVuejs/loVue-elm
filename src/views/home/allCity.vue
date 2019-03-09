@@ -83,7 +83,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .border-0 
     border: 0;
 </style>

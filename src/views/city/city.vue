@@ -204,7 +204,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import './../../style/custom.styl'
 
 .search-box
